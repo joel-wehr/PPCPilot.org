@@ -1,0 +1,13 @@
+# Sub-projects have their own git repos
+ppc-pilot-maui/
+ppc-pilot-web/
+ppc-flight-school/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
