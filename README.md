@@ -16,19 +16,27 @@ Django + React web application deployed at ppcpilot.org. Provides:
 
 **Tech:** Django 5, React 18, TypeScript, Tailwind CSS, PostgreSQL (SQLite dev), TanStack Query
 
-### ppc-pilot-maui
-.NET MAUI 10 cross-platform mobile app for iOS, Android, and Windows. Provides:
+### ppc-pilot-ios
+Native iOS mobile app. Provides:
 - 7 pre-flight, in-flight, and post-flight checklists
 - Automatic flight log tracking grouped by date
 - In-flight practice mode with counters for repeated maneuvers
 - Syncs with ppcpilot.org via REST API
 
-**Tech:** .NET MAUI 10, SQLite, MVVM (CommunityToolkit.Mvvm), UraniumUI
+**Tech:** Swift, SwiftUI
+
+### ppc-pilot-android
+Native Android mobile app. Provides:
+- 7 pre-flight, in-flight, and post-flight checklists
+- Automatic flight log tracking grouped by date
+- In-flight practice mode with counters for repeated maneuvers
+- Syncs with ppcpilot.org via REST API
+
+**Tech:** Kotlin, Jetpack Compose
 
 ### ppc-flight-school
 Training content and platform planning for PPC flight education:
 - **ppc-knowledgebase** - 119,000 words of training content across 11 modules
-- **ppc-mobile-app** - Legacy copy of MAUI app (canonical location is now `ppc-pilot-maui`)
 - **ppc-training-platform** - Planned AI-enhanced web training platform (Next.js + FastAPI)
 
 ## Infrastructure
