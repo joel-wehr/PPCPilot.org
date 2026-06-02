@@ -414,10 +414,16 @@ Per-aircraft recurring service rules with computed due status.
 | id | int | false | Auto-increment |
 | RemoteId | int | true | Server-assigned |
 | full_name | string(200) | true | Pilot legal name |
-| certificate_type | enum | false | 0=None, 1=Student, 2=Sport, 3=Private, 4=Recreational, 5=Commercial |
+| certificate_type | enum | false | 0=None, 1=Student, 2=Sport, 3=Private, 4=Recreational, 5=Commercial, **6=ATP** (added 2026-06-02) |
 | certificate_number | string(50) | true | FAA certificate |
 | certificate_issue_date | date | true | Certificate issue date |
-| ratings | text | true | JSON list of category/class ratings (e.g. ["PPC-Land"]) |
+| ratings | text | true | JSON array of category/class codes (e.g. ["PPC-L","ASEL"]). Codes: ASEL/AMEL/ASES/AMES/GLIDER/RH/RG/PPC-L/PPC-S/WSC-L/WSC-S/BALLOON |
+| instructor_certificates | text (JSON) | true | **NEW 2026-06-02** — JSON array of instructor codes: CFI/CFII/MEI/AGI/IGI (handle like ratings/endorsements) |
+| instrument_rating | bool | false | **NEW 2026-06-02** — default false |
+| pilot_status | enum | true | **NEW 2026-06-02** — 0=Pre-solo, 1=Student in training, 2=Rated–current, 3=Rated–lapsed, 4=Working toward a rating; null=unspecified |
+| goal_certificate | enum | true | **NEW 2026-06-02** — target cert level, same taxonomy as certificate_type (0–6) |
+| goal_rating | string | true | **NEW 2026-06-02** — target category/class code (e.g. "PPC-L"); blank=none |
+| goal_target_date | date | true | **NEW 2026-06-02** — target date (ISO YYYY-MM-DD) |
 | flight_review_date | date | true | Last 61.56 flight review (24-cal-month currency) |
 | medical_type | enum | false | 0=Driver's License, 1=Third-Class, 2=BasicMed, 3=Second, 4=First |
 | medical_expiration | date | true | Expiry date (triggers dashboard warning) |
@@ -430,6 +436,10 @@ Per-aircraft recurring service rules with computed due status.
 | emergency_contact_phone | string(20) | true | Phone number |
 | endorsements | text | true | JSON object (e.g., { "tailwheel": true }) |
 | created_at, modified_at, SyncStatus | datetime/int | (standard) | (standard) |
+
+Serializer also returns read-only display fields on pull: `certificate_type_display`, `medical_type_display`, `pilot_status_display`, `goal_certificate_display`.
+
+> **Sync-contract change (2026-06-02, web PR #19 "rich Pilot Profile"):** all ADDITIVE — `certificate_type` gained `6=ATP` (existing 0–5 unchanged); new fields `instructor_certificates` (JSON), `instrument_rating` (bool), `pilot_status` (nullable enum), `goal_certificate` (nullable enum), `goal_rating` (string), `goal_target_date` (date). Backward-compatible — existing clients keep working until they opt in. Native DTO update tracked in task #24. Full detail: `ppc-pilot-web/docs/PILOT_PROFILE_SPEC.md`.
 
 ---
 
